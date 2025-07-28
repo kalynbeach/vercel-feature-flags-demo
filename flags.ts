@@ -10,6 +10,7 @@ export const showBanner = flag<boolean>({
     { value: true, label: "Show Banner" },
     { value: false, label: "Hide Banner" },
   ],
+  decide: () => Math.random() > 0.5,
 })
 
 // This flag determines the appearance of the primary action button.
@@ -23,6 +24,12 @@ export const buttonColor = flag<"default" | "destructive" | "outline">({
     { value: "destructive", label: "Destructive" },
     { value: "outline", label: "Outline" },
   ],
+  decide: () => {
+    let num = Math.random()
+    if (num < 0.33) return "default"
+    if (num < 0.66) return "destructive"
+    return "outline"
+  },
 })
 
 // This flag enables or disables a new, experimental feature section.
@@ -35,4 +42,5 @@ export const enableNewFeature = flag<boolean>({
     { value: true, label: "Enable" },
     { value: false, label: "Disable" },
   ],
+  decide: () => Math.random() > 0.5,
 })
