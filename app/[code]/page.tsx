@@ -1,5 +1,13 @@
 // import { generatePermutations } from "flags/next";
-import { landingPageFlags, landingPage, showBanner, buttonColor, enableNewFeature } from "@/flags";
+import {
+  landingPageFlags,
+  landingPage,
+  showBanner,
+  buttonColor,
+  enableNewFeature,
+} from "@/flags";
+import { Lightbulb, PartyPopper, TestTube2 } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +18,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Lightbulb, PartyPopper, TestTube2 } from "lucide-react";
 
 // export async function generateStaticParams() {
 //   const codes = await generatePermutations(landingPageFlags);
@@ -24,8 +31,8 @@ export default async function Page({ params }: { params: Params }) {
 
   const selectedLandingPage = await landingPage(code, landingPageFlags);
   const isBannerVisible = await showBanner(code, landingPageFlags);
-  const mainButtonColor = await buttonColor(code, landingPageFlags);
-  const isNewFeatureEnabled = await enableNewFeature(code, landingPageFlags);
+  const mainButtonColor = await buttonColor();
+  const isNewFeatureEnabled = await enableNewFeature();
 
   return (
     <div className="bg-background text-foreground min-h-screen">
@@ -33,7 +40,9 @@ export default async function Page({ params }: { params: Params }) {
         <div className="space-y-8">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight">
-              {selectedLandingPage === "a" ? "Landing Page A" : "Landing Page B"}
+              {selectedLandingPage === "a"
+                ? "Landing Page A"
+                : "Landing Page B"}
             </h1>
             <p className="text-muted-foreground mt-2 text-lg">
               See how feature flags can dynamically change a Next.js
@@ -187,25 +196,11 @@ export default async function Page({ params }: { params: Params }) {
               deployment. The changes will be reflected on your next page visit.
             </AlertDescription>
           </Alert>
+          <div className="flex items-center justify-center">
+            <ThemeToggle />
+          </div>
         </div>
       </main>
     </div>
-    // <div>
-    //   {page === "a" ? (
-    //     <div>
-    //       <h1>Landing Page A</h1>
-    //     </div>
-    //   ) : (
-    //     <div>
-    //       <h1>Landing Page B</h1>
-    //     </div>
-    //   )}
-
-    //   {isBannerVisible && (
-    //     <div>
-    //       <h1>Banner</h1>
-    //     </div>
-    //   )}
-    // </div>
   );
 }
