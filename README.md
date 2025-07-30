@@ -2,12 +2,15 @@
 
 ## Overview
 
-This project demonstrates how feature flags can dynamically change a Next.js application.
+This app is based on Vercel's [Flags SDK](https://github.com/vercel/flags) and demonstrates various feature flag examples.
+
+See [Documentation & Resources](#documentation--resources) below for more info on the Flags SDK.
 
 ### Feature Flag Code
 
-- **`flags.ts`**: Core module where feature flag functions are defined.
+- **`flags.ts`**: Core module where feature flag functions are declared.
 - **`app/page.tsx`**: Page with example usage of feature flag functions from `flags.ts`
+- **`app/.well-known/vercel/flags/route.ts`**: Endpoint for feature flag discovery (by Vercel Toolbar)
 
 ### Vercel Toolbar
 
@@ -47,6 +50,11 @@ bun run start
 
 Vercel Documentation:
 - [Flags SDK](https://flags-sdk.dev/)
+  - [Flags SDK - Principles - Flags as Code](https://flags-sdk.dev/principles/flags-as-code)
+  - ⭐️ [Flags SDK - Principles - Precompute](https://flags-sdk.dev/principles/precompute)
+  - [Flags SDK - Principles - Evaluation Context](https://flags-sdk.dev/principles/evaluation-context)
+  - ⭐️ [Flags SDK - Frameworks - Quickstart](https://flags-sdk.dev/frameworks/next)
+  - ⭐️ [Flags SDK - Frameworks - Precompute](https://flags-sdk.dev/frameworks/next/precompute)
 - [Feature Flags](https://vercel.com/docs/feature-flags)
 - [Flags Explorer](https://vercel.com/docs/feature-flags/flags-explorer)
 - [Vercel Toolbar](https://vercel.com/docs/vercel-toolbar)
