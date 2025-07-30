@@ -25,31 +25,38 @@ bun start
 bun lint
 ```
 
+## Key Dependencies
+
+- **Feature Flags** (`flags`) - Core feature flags package for Next.js
+- **Vercel Toolbar** (`@vercel/toolbar`) - Integrated for development and production debugging
+- **Tailwind CSS v4** - Using CSS imports with @theme inline syntax
+- **ESLint** - Configured with `eslint-config-next` using flat config format
+
 ## Architecture & Key Concepts
 
 ### Feature Flags System
 The core feature flag implementation lives in `flags.ts`. When working with feature flags:
-- Flags are defined using the `@vercel/flags/next` package
-- Each flag has a key, description, and resolve function
+- Flags are defined using the `"flags/next"` package
+- Each flag has a key, description, options array, and decide function
 - Flags are evaluated server-side in the app router
-- The `decide()` function returns random values for demo purposes
+- The `decide()` function returns values using custom logic (random selection for demo purposes)
 
 ### Component Structure
-- All UI components are from shadcn/ui and live in `components/ui/`
-- Components use CSS variables for theming (defined in `globals.css`)
+- UI components from shadcn/ui live in `components/ui/` (including sidebar, chart components)
+- Components use CSS variables for theming (defined in `app/globals.css`)
 - The `cn()` utility in `lib/utils.ts` handles className merging
 - Dark mode is supported via `theme-provider.tsx`
+- Custom hooks in `hooks/` directory (`use-toast.ts`)
 
 ### Next.js App Router
 - Pages use server components by default
 - Feature flags are awaited at the top of page components
-- The `unstable_noStore()` cache directive ensures fresh flag values
 
 ## Working with Feature Flags
 
 When adding new feature flags:
 1. Define the flag in `flags.ts` with a unique key
-2. Implement the resolve function (replace random logic with actual business logic)
+2. Add options array with possible values and labels
 3. Use the flag in server components by awaiting it
 4. Pass flag values as props to client components if needed
 
@@ -59,10 +66,11 @@ export const myNewFlag = flag<boolean>({
   key: 'my-new-flag',
   description: 'Controls new feature visibility',
   defaultValue: false,
-  async resolve() {
-    // Implement actual resolution logic here
-    return decide(50);
-  }
+  options: [
+    { value: true, label: "Enable" },
+    { value: false, label: "Disable" },
+  ],
+  decide: () => Math.random() > 0.5,
 });
 ```
 
@@ -78,6 +86,16 @@ When creating or modifying UI:
 
 - The project uses Bun as the package manager and runtime
 - TypeScript strict mode is enabled
-- Build errors are currently ignored for rapid prototyping
 - No test suite exists yet
-- The `@sveltejs/kit` dependency appears to be unused and can likely be removed
+- Tailwind CSS v4 is configured using CSS imports instead of a config file
+
+## Configuration Files
+
+- **ESLint**: Configured in `eslint.config.mjs` using flat config format
+- **Prettier**: Configuration embedded in `package.json`
+- **Vercel Toolbar**: Integrated via `withVercelToolbar` in `next.config.ts`
+
+## Additional Resources
+
+- Feature flags documentation available in `/docs/vercel/` directory
+- Vercel Toolbar is injected in development mode and can be enabled in production

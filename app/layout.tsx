@@ -1,12 +1,21 @@
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import { VercelToolbar } from '@vercel/toolbar/next';
+import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css'
 
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: 'Vercel Feature Flags Demo',
+  description: 'See how feature flags can dynamically change a Next.js application.',
 }
 
 export default function RootLayout({
@@ -14,18 +23,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const shouldInjectToolbar = process.env.NODE_ENV === 'development';
   return (
-    <html lang="en">
-      <head>
-        <style>{`
-html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
-  --font-mono: ${GeistMono.variable};
-}
-        `}</style>
-      </head>
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        {children}
+        {shouldInjectToolbar && <VercelToolbar />}
+      </body>
     </html>
   )
 }

@@ -25,7 +25,7 @@ export const buttonColor = flag<"default" | "destructive" | "outline">({
     { value: "outline", label: "Outline" },
   ],
   decide: () => {
-    let num = Math.random()
+    const num = Math.random()
     if (num < 0.33) return "default"
     if (num < 0.66) return "destructive"
     return "outline"

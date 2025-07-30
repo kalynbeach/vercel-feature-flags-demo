@@ -29,7 +29,7 @@ export default async function HomePage() {
               <PartyPopper className="h-4 w-4 text-green-500" />
               <AlertTitle>Special Promotion!</AlertTitle>
               <AlertDescription>
-                You're seeing this banner because the `show-banner` feature flag is enabled!
+                You&apos;re seeing this banner because the `show-banner` feature flag is enabled!
               </AlertDescription>
             </Alert>
           )}
@@ -64,7 +64,7 @@ export default async function HomePage() {
                     </CardHeader>
                     <CardContent>
                       <p>
-                        Congratulations! You've discovered our latest and greatest feature. More amazing content coming
+                        Congratulations! You&apos;ve discovered our latest and greatest feature. More amazing content coming
                         here soon!
                       </p>
                     </CardContent>
