@@ -1,5 +1,17 @@
 import { flag } from "flags/next";
 
+// This flag controls the landing page to display to the user.
+export const landingPage = flag<"a" | "b">({
+  key: "landing-page",
+  description: "Controls the landing page to display to the user.",
+  defaultValue: "a",
+  options: [
+    { value: "a", label: "A" },
+    { value: "b", label: "B" },
+  ],
+  decide: () => (Math.random() > 0.5 ? "a" : "b"),
+});
+
 // This flag controls the visibility of a promotional banner.
 // It's a boolean flag, so it can be either on (true) or off (false).
 export const showBanner = flag<boolean>({
@@ -13,6 +25,9 @@ export const showBanner = flag<boolean>({
   ],
   decide: () => Math.random() > 0.5,
 });
+
+// A group of flags to be precomputed
+export const landingPageFlags = [landingPage, showBanner] as const;
 
 // This flag determines the appearance of the primary action button.
 // It uses string values to map to different button styles.
